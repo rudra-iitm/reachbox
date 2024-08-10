@@ -5,7 +5,7 @@ import Mode from './Toggle';
 
 const Navbar = () => {
   return (
-    <div className='flex justify-between items-center h-[64px] bg-slate-800'>
+    <div className='flex justify-between items-center h-[64px] bg-[#1F1F1F'>
       <div className='px-12'>
         <img src={onebox} alt='OneBox' />
       </div>
