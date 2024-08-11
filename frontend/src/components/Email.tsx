@@ -59,7 +59,7 @@ const EmailComponent = ({ thread_id, isDarkMode }: { thread_id: string, isDarkMo
 
   return (
     <div className={`flex border-l ${isDarkMode ? 'border-gray-500' : 'border-gray-300'} min-h-screen`}>
-      <div className={`flex-1 w-[780px] ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'}`}>
+      <div className={`flex-1 w-[780px] ${isDarkMode ? 'bg-[#000000] text-white' : 'bg-white text-gray-900'}`}>
         <div className={`flex justify-between items-center p-4 border-b ${isDarkMode ? 'border-gray-500' : 'border-gray-300'}`}>
           <div className={`${isDarkMode ? 'text-white' : 'text-black'} text-lg font-semibold`}>
             {data.fromName}
@@ -105,9 +105,7 @@ const EmailComponent = ({ thread_id, isDarkMode }: { thread_id: string, isDarkMo
           <EmailReply onClick={handleReplyClick} isDarkMode={isDarkMode}/>
         </div>
       </div>
-
-      {/* Lead Details */}
-      <div className={`p-4 w-[278px] ${isDarkMode ? 'bg-gray-800 text-white border-gray-500' : 'bg-white text-black border-gray-300'} border-l`}>
+      <div className={`p-4 w-[278px] ${isDarkMode ? 'bg-[#000000] text-white border-gray-500' : 'bg-white text-black border-gray-300'} border-l`}>
         <div className={`font-semibold mb-4 ${isDarkMode ? 'bg-gray-700 text-white' : 'bg-gray-200 text-[#454F5B]'} p-2 rounded-md px-4`}>Lead Details</div>
         <div className="mb-4 flex justify-between items-center gap-4">
           <div className={`text-gray-400 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>Name</div>
@@ -145,7 +143,7 @@ const EmailComponent = ({ thread_id, isDarkMode }: { thread_id: string, isDarkMo
 };
 
 const StepItem = ({ icon, text, detail, isDarkMode }: { icon: React.ReactNode, text: string, detail: string, isDarkMode: boolean }) => (
-  <div className={`flex items-center gap-4 p-4 ${isDarkMode ? 'bg-gray-800 text-white' : 'bg-gray-100 text-gray-900'}`}>
+  <div className={`flex items-center gap-4 p-4 ${isDarkMode ? ' text-white' : ' text-gray-900'}`}>
     <div className={`rounded-full ${isDarkMode ? 'bg-gray-700 border-white' : 'bg-gray-200 border-gray-300'} p-1 border border-white`}>
       <img src={email2} className='w-6 h-6' alt="" />
     </div>

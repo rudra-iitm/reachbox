@@ -20,8 +20,6 @@ const Sidebar = ({ setTab, isDarkMode }: { setTab: (name: string) => void; isDar
               {!isDarkMode && <img className="w-[32px] h-[32px]" src={mainlogo_light} alt="Logo" />}
             </a>
           </div>
-
-          {/* Repeated buttons */}
           {[
             { name: 'Home', icon: home },
             { name: 'User', icon: user },

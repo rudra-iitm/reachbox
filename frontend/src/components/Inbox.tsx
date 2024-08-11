@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import DropdownInbox from './DropdownInbox';
 import reset from '../assets/reset.svg';
 import Searchbar from './Searchbar';
@@ -16,6 +16,7 @@ const Inbox = ({ setCurrentThread, isDarkMode }: { setCurrentThread: (threadId: 
   const [data, setData] = useState<{ fromEmail: string; subject: string; campaign: string; sentAt: string; status: Status; threadId: string; }[]>([]);
   const [token, setToken] = useState('');
   const [totalInboxes, setTotalInboxes] = useState(0);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [selectedInboxes, setSelectedInboxes] = useState(0);
   const location = useLocation();
 
@@ -60,7 +61,7 @@ const Inbox = ({ setCurrentThread, isDarkMode }: { setCurrentThread: (threadId: 
   };
 
   return (
-    <div className={`h-full ${isDarkMode ? 'bg-[#1a1a1a]' : 'bg-white'}`}>
+    <div className={`h-full ${isDarkMode ? 'bg-[#000000]' : 'bg-white'}`}>
       <div className='w-full flex justify-between items-center p-2'>
         <DropdownInbox isDarkMode={isDarkMode} />
         <div className="hs-tooltip [--placement:right] inline-block mb-2">

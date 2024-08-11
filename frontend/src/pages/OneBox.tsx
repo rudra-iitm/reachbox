@@ -26,11 +26,11 @@ const OneBox = () => {
         <Sidebar setTab={setTab} isDarkMode={isDarkMode} />
       </div>
       <div className="w-full flex flex-col">
-        <div className={`sticky top-0 z-10 border-b border-l ${isDarkMode ? 'border-gray-500' : 'border-gray-300'}`}>
+        <div className={`sticky top-0 bg-[#343A40] z-10 border-b border-l ${isDarkMode ? 'border-gray-500' : 'border-gray-300'}`}>
           <Navbar setIsDarkMode={setIsDarkMode} isDarkMode={isDarkMode} />
         </div>
         <div className="flex flex-grow overflow-hidden">
-          <div className={`flex-grow overflow-hidden ${isDarkMode ? 'dark:bg-[#000000]' : 'bg-white'}`}>
+          <div className={`flex-grow overflow-hidden ${isDarkMode ? 'bg-[#000000]' : 'bg-white'}`}>
             {tab === 'Inbox' ? <Inbox setCurrentThread={setCurrentThread} isDarkMode={isDarkMode} /> : <EmptyScreen isDarkMode={isDarkMode}/>}
           </div>
           <div className={`overflow-hidden ${tab !== 'Inbox' ? 'hidden' : ''}`}>
