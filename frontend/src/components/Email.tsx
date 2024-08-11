@@ -16,6 +16,22 @@ const EmailComponent = ({ thread_id, isDarkMode }: { thread_id: string, isDarkMo
     setIsReplyVisible((prev) => !prev);
   };
 
+  const handleKeyDown = (event: KeyboardEvent) => {
+    if (event.key === 'r' || event.key === 'R') {
+      event.preventDefault();
+      handleReplyClick();
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   interface EmailData {
     toEmail: string;
     cc: string | null;
