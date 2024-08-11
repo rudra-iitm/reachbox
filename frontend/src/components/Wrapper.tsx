@@ -17,7 +17,8 @@ interface WrapperProps {
 
 const Wrapper = (props: WrapperProps) => {
   return (
-    <div className="border-y mx-5 w-full border-gray-500 py-4 px-2 hover:border-l-2 hover:border-l-[#626FE6]">
+    <div
+     className="border-y mx-5 w-full border-gray-500 py-4 px-2 hover:border-l-2 hover:border-l-[#626FE6]">
       <div className="flex justify-between items-center">
         <div className="text-white font-semibold text-lg">
           {props.email}

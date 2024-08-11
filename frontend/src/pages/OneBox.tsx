@@ -6,10 +6,13 @@ import Inbox from '../components/Inbox';
 import EmailComponent from '../components/Email';
 
 const OneBox = () => {
+  const [currentThread, setCurrentThread] = React.useState('');
+  const [tab, setTab] = React.useState('home');
+
   return (
     <div className="flex h-screen w-screen overflow-hidden">
       <div className="w-[56px]">
-        <Sidebar />
+        <Sidebar setTab={setTab}/>
       </div>
       <div className="w-full flex flex-col">
         <div className="sticky top-0 z-10 border-b border-gray-500">
@@ -18,10 +21,10 @@ const OneBox = () => {
         <div className="flex flex-grow overflow-hidden">
           <div className="bg-[#000000] flex-grow overflow-hidden">
             {/* <EmptyScreen /> */}
-            <Inbox />
+            {tab == 'Inbox' ? <Inbox setCurrentThread={setCurrentThread}/> : <EmptyScreen />}
           </div>
-          <div className="overflow-hidden">
-            <EmailComponent />
+          <div className={`overflow-hidden ${tab != 'Inbox' ? 'hidden' : ''}`}>
+            <EmailComponent thread_id={currentThread}/>
           </div>
         </div>
       </div>

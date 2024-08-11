@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaPaperPlane, FaRegEnvelope, FaCheckCircle } from 'react-icons/fa';
 import email2 from '../assets/email2.svg';
 import reply from '../assets/reply.svg';
@@ -6,23 +6,62 @@ import DropdownStatus from './DropdownStatus';
 import DropdownMove from './DropdownMove';
 import DropdownMenu from './DropdownMenu';
 import EmailReply from './EmailReply';
+import { useLocation } from 'react-router-dom';
+import axios from 'axios';
 
-const EmailComponent = () => {
-  // State to manage the visibility of the EmailReply component
+const EmailComponent = ({thread_id}: { thread_id: string }) => {
   const [isReplyVisible, setIsReplyVisible] = useState(false);
-
-  // Function to toggle the visibility of EmailReply component
   const handleReplyClick = () => {
     setIsReplyVisible((prev) => !prev);
   };
 
+  interface EmailData {
+    toEmail: string;
+    cc: string | null;
+    body: string;
+    fromName: string;
+    subject: string;
+    fromEmail: string;
+  }
+  
+  const [data, setData] = useState<EmailData>({ fromName: '', subject: '' , body: '', fromEmail: '', toEmail: '', cc: '' });
+  const [token, setToken] = useState('');
+  const location = useLocation()
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const tokenFromUrl = params.get('token');
+    console.log('Token from URL:', tokenFromUrl);
+    setToken(tokenFromUrl || '');
+  }, [location.search]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const baseurl = `https://hiring.reachinbox.xyz/api/v1/onebox/messages/${thread_id}`;
+      const headers = {
+        Authorization: `Bearer ${token}`
+      };
+
+      try {
+        const response = await axios.get(baseurl, { headers });
+        setData(response.data);
+      } catch (err) {
+        console.error('Error fetching data:', err);
+      }
+    };
+
+    if (token) {
+      console.log('Fetching data...');
+      fetchData();
+    }
+  }, [thread_id, token]);
+
   return (
-    <div className="ml-9 flex border-l border-gray-500 min-h-screen">
-      {/* Main Content */}
-      <div className="flex-1">
+    <div className="flex border-l border-gray-500 min-h-screen">
+      <div className={`flex-1 w-[780px]`}>
         <div className="flex justify-between items-center p-4 border-b border-gray-500">
           <div className="text-white text-lg font-semibold">
-            Orlando
+            {data.fromName}
           </div>
           <div className='flex gap-4'>
               <DropdownStatus />
@@ -30,22 +69,22 @@ const EmailComponent = () => {
               <DropdownMenu />
           </div>
         </div>
-        <div className="bg-[#141517] border border-gray-500 m-8 p-4 rounded-lg text-white">
+        <div className={`bg-[#141517] border border-gray-500 m-8 p-4 rounded-lg text-white ${thread_id == '' ? 'hidden' : ''}`}>
           <div className="flex justify-between items-center">
             <div className="mb-2 text-white font-semibold">
-              New Product Launch
+              {data.subject}
             </div>
             <div className="text-gray-500">20 June 2022 : 9:16AM</div>
           </div>
           <div className="mb-2 text-sm text-gray-400">
-            <span className="text-gray-400">from :</span> jeanne@icloud.com 
-            <span className="text-gray-400 ml-4">cc :</span> lennon.j@mail.com
+            <span className="text-gray-400">from :</span> {data.fromEmail} 
+            <span className="text-gray-400 ml-4">cc :</span> {data.cc}
           </div>
           <div className="mb-2 text-sm text-gray-400">
-            <span className="text-gray-400">to :</span> lennon.j@mail.com
+            <span className="text-gray-400">to :</span> {data.toEmail}
           </div>
           <p className="text-gray-300">
-            I would like to introduce you to SaaSgrow, a productized design service specifically tailored for SaaS startups. Our aim is to help you enhance the user experience and boost the visual appeal of your software products.
+            {data.body}
           </p>
           <div className="mt-4">
             <button className="text-blue-400">View all 4 replies</button>
@@ -71,7 +110,7 @@ const EmailComponent = () => {
         <div className="text-white font-semibold mb-4 bg-[#23272C] p-2 rounded-md px-4">Lead Details</div>
         <div className="mb-4 flex justify-between items-center gap-4">
           <div className="text-gray-400">Name</div>
-          <div className="text-white">Orlando</div>
+          <div className="text-white">{data.fromEmail}</div>
         </div>
         <div className="mb-4 flex justify-between items-center gap-4">
           <div className="text-gray-400">Contact No</div>
@@ -104,7 +143,7 @@ const EmailComponent = () => {
   );
 };
 
-const StepItem = ({ icon, text, detail }) => (
+const StepItem = ({ icon, text, detail }: { icon: React.ReactNode, text: string, detail: string }) => (
   <div className='flex items-center gap-4 p-4'>
     <div className='rounded-full bg-[#23272C] p-1 border border-white'>
       <img src={email2} className='w-6 h-6' alt="" />

@@ -1,7 +1,7 @@
 import React from 'react'
 import DropdownLatest from './DropdownLatest'
 
-const Searchbar = () => {
+const Searchbar = ({totalInboxes}: {totalInboxes: number}) => {
   return (
     <div>
     <div className="px-5 pt-4 p-2 relative mx-auto text-gray-600">
@@ -25,7 +25,7 @@ const Searchbar = () => {
     </div>
     <div className='p-5 flex items-center gap-2'>
         <div className='h-8 w-8 flex justify-center items-center rounded-full bg-[#222426] text-[#5C7CFA]'>
-            26
+            {totalInboxes}
         </div>
         <div className='text-white font-medium'>
           New Replies
